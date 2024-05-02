@@ -10,7 +10,7 @@ export default function Hero() {
             <div className="container">
               <a className="navbar-brand" href="#">
                 <img
-                  src="./assets/img/svg/logo.svg"
+                  src="/assets/img/svg/logo.svg"
                   alt="Bootstrap"
                   width={100}
                 />
@@ -93,7 +93,7 @@ export default function Hero() {
             <div className="col-lg-6">
               <img
                 className="img-car"
-                src="./assets/img/img_car.png"
+                src="/assets/img/img_car.png"
                 alt="Image Car"
               />
             </div>

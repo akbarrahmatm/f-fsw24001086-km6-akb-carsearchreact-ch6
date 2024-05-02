@@ -1,7 +1,13 @@
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+import SearchCar from "./components/SearchCar";
+
 export default function Cars() {
   return (
     <>
-      <h1>Cars</h1>
+      <Hero />
+      <SearchCar />
+      <Footer />
     </>
   );
 }

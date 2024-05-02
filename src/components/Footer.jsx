@@ -31,7 +31,7 @@ export default function Footer() {
                 <li>
                   <a href={"#"}>
                     <img
-                      src="./assets/img/svg/icon_facebook.svg"
+                      src="/assets/img/svg/icon_facebook.svg"
                       alt="Icon Facebook"
                     />
                   </a>
@@ -39,7 +39,7 @@ export default function Footer() {
                 <li>
                   <a href={"#"}>
                     <img
-                      src="./assets/img/svg/icon_instagram.svg"
+                      src="/assets/img/svg/icon_instagram.svg"
                       alt="Icon Instagram"
                     />
                   </a>
@@ -47,20 +47,20 @@ export default function Footer() {
                 <li>
                   <a href={"#"}>
                     <img
-                      src="./assets/img/svg/icon_twitter.svg"
+                      src="/assets/img/svg/icon_twitter.svg"
                       alt="Icon Twitter"
                     />
                   </a>
                 </li>
                 <li>
                   <a href={"#"}>
-                    <img src="./assets/img/svg/icon_mail.svg" alt="Icon Mail" />
+                    <img src="/assets/img/svg/icon_mail.svg" alt="Icon Mail" />
                   </a>
                 </li>
                 <li>
                   <a href={"#"}>
                     <img
-                      src="./assets/img/svg/icon_twitch.svg"
+                      src="/assets/img/svg/icon_twitch.svg"
                       alt="Icon Twitch"
                     />
                   </a>
@@ -69,10 +69,7 @@ export default function Footer() {
             </div>
             <div className="col-lg-3 footer-item copyright">
               <p>Copyright Binar 2022</p>
-              <img
-                src="./assets/img/svg/logo.svg"
-                alt="Logo Binar Rental Car"
-              />
+              <img src="/assets/img/svg/logo.svg" alt="Logo Binar Rental Car" />
             </div>
           </footer>
         </div>
