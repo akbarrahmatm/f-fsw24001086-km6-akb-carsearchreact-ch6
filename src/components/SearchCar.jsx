@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { getAllCars } from "../utils/httpRequest";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { getAllCars } from "../services/car.services";
 
 import CarsCard from "./CarsCard";
 

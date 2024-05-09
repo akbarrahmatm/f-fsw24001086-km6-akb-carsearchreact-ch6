@@ -1,4 +1,4 @@
-import filterValidation from "./validation";
+import filterValidation from "../utils/validation";
 
 export async function getAllCars(data) {
   filterValidation(data);
