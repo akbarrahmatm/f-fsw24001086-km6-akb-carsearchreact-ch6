@@ -1,69 +1,114 @@
 import { useState } from "react";
-import { useEffect } from "react";
 import { getAllCars } from "../utils/httpRequest";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 export default function SearchCar() {
-  const [isFetching, setIsFetching] = useState(true);
-  const [cars, setCars] = useState({});
+  const [isFetching, setIsFetching] = useState();
+  const [cars, setCars] = useState([]);
+  const [filterForm, setFilterForm] = useState({
+    driverType: "",
+    date: "",
+    time: "",
+    capacity: "",
+  });
 
-  console.log(isFetching);
+  const handleInputFilter = (e) => {
+    const { name, value } = e.target;
+    setFilterForm({ ...filterForm, [name]: value });
+  };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await getAllCars();
+  const handleSearchCar = () => {
+    fetchData(filterForm);
 
-        setIsFetching(false);
+    console.log(filterForm);
+  };
 
+  async function fetchData(data) {
+    setIsFetching(true);
+    try {
+      const response = await getAllCars(data);
+
+      console.log(response);
+
+      if (response.length > 0) {
         setCars(response);
-        console.log(cars);
-      } catch (err) {
-        console.log(err.message);
+        toast.success("Cars Data Retrieved", {
+          position: "bottom-left",
+          autoClose: 7000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: "colored",
+        });
+      } else {
+        setCars([]);
+        toast.error("Not Found", {
+          position: "bottom-left",
+          autoClose: 7000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          theme: "colored",
+        });
       }
+    } catch (err) {
+      toast.error(err.message, {
+        position: "bottom-left",
+        autoClose: 7000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        theme: "colored",
+      });
     }
-
-    fetchData();
-  }, []);
-
-  console.log(cars);
+    setIsFetching(false);
+  }
 
   return (
     <>
       <section className="search-car">
+        <ToastContainer />
+
         <div className="container">
           <div className="card filter-card shadow">
             <div className="row">
               <div className="col-lg-10">
                 <div className="row">
-                  <div className="col-lg-3 m-auto">
-                    <label htmlFor="tipeDriver">Tipe Driver</label>
+                  <div className="col-md-6 my-3 col-lg-3 mb-0  m-auto">
+                    <label htmlFor="driverType">Tipe Driver</label>
                     <select
                       className="form-select"
                       aria-label="Default select example"
-                      id="tipeDriver"
+                      id="driverType"
+                      name="driverType"
+                      onChange={handleInputFilter}
                     >
-                      <option defaultValue={"true"}>
+                      <option>
                         Pilih Tipe Driver &nbsp; &nbsp; &nbsp; &nbsp;
                       </option>
                       <option value={"true"}>Dengan Supir</option>
                       <option value={"false"}>Tanpa Supir (Lepas Kunci)</option>
                     </select>
                   </div>
-                  <div className="col-lg-3 m-auto">
-                    <label htmlFor="tanggal">Tanggal</label>
+                  <div className="col-md-6 my-3 col-lg-3 mb-0  m-auto">
+                    <label htmlFor="date">Tanggal</label>
                     <input
                       type="date"
                       className="form-control"
                       placeholder="Pilih Tanggal"
-                      id="tanggal"
+                      id="date"
+                      name="date"
+                      onChange={handleInputFilter}
                     />
                   </div>
-                  <div className="col-lg-3 m-auto">
-                    <label>Pilih Waktu</label>
+                  <div className="col-md-6 my-3 col-lg-3 mb-0  m-auto">
+                    <label htmlFor="time">Pilih Waktu</label>
                     <select
                       className="form-select"
                       aria-label="Default select example"
-                      id="waktuJemput"
+                      id="time"
+                      name="time"
+                      onChange={handleInputFilter}
                     >
                       <option defaultValue={true}>
                         Pilih Waktu &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -75,8 +120,8 @@ export default function SearchCar() {
                       <option value="12:00">12.00 WIB</option>
                     </select>
                   </div>
-                  <div className="col-lg-3">
-                    <label className="fw-light">
+                  <div className="col-md-6 my-3 col-lg-3 mb-0 ">
+                    <label htmlFor="capacity" className="fw-light">
                       Jumlah Penumpang (optional)
                     </label>
                     <div className="input-group">
@@ -84,8 +129,10 @@ export default function SearchCar() {
                         type="search"
                         className="form-control border-end-0"
                         placeholder="Jumlah Penumpang"
-                        id="jumlahPenumpang"
-                        defaultValue={0}
+                        id="capacity"
+                        name="capacity"
+                        defaultValue={""}
+                        onChange={handleInputFilter}
                       />
                       <span className="input-group-text bg-white">
                         <img src="images/fi_users.png" width="20px" alt="" />
@@ -94,10 +141,11 @@ export default function SearchCar() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-auto m-auto">
+              <div className="col-lg-auto mt-2 m-auto">
                 <button
-                  className="btn btn-success-search text-center"
+                  className="btn btn-success-search w-100 text-center"
                   id="load-btn"
+                  onClick={handleSearchCar}
                 >
                   Cari Mobil
                 </button>
@@ -117,17 +165,24 @@ export default function SearchCar() {
               }}
               className="text-center"
             >
-              <div className="spinner-border text-primary mb-3" role="status">
+              <div className="spinner-border text-success mb-3" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
               <p>Fetching Cars Data ...</p>
             </div>
           )}
 
+          {!isFetching && cars.length === 0 && (
+            <div className="text-center mt-5">
+              <p>No Cars Found.</p>
+            </div>
+          )}
+
           <div className="row" id="cars-container">
             {isFetching === false &&
+              cars.length > 0 &&
               cars.map((car) => (
-                <div className="col-4" key={car.id}>
+                <div className="col-lg-4" key={car.id}>
                   <div className="card cars-card">
                     <img
                       src={car.image.slice(1)}
@@ -135,7 +190,7 @@ export default function SearchCar() {
                     />
                     <div className="card-body">
                       <h5 className="card-title cars-type">
-                        {car.manufacture} / {car.model}
+                        {car.manufacture} {car.model} / {car.type}
                       </h5>
                       <h5 className="card-title cars-price">
                         Rp {car.rentPerDay} / hari
