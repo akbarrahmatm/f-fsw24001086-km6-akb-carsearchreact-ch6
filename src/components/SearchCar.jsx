@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { getAllCars } from "../utils/httpRequest";
-
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import FormatPrice from "../utils/formatPrice";
+
+import CarsCard from "./CarsCard";
 
 export default function SearchCar() {
   const [isFetching, setIsFetching] = useState();
@@ -23,16 +23,12 @@ export default function SearchCar() {
 
   const handleSearchCar = () => {
     fetchData(filterForm);
-
-    console.log(filterForm);
   };
 
   async function fetchData(data) {
     setIsFetching(true);
     try {
       const response = await getAllCars(data);
-
-      console.log(response);
 
       if (response.length > 0) {
         setCars(response);
@@ -72,7 +68,6 @@ export default function SearchCar() {
 
         <div className="container">
           <div className="card filter-card shadow">
-            {/* Filter Search */}
             <div className="row">
               <div className="col-lg-10">
                 <div className="row">
@@ -124,7 +119,7 @@ export default function SearchCar() {
                   </div>
                   <div className="col-md-6 my-3 col-lg-3 mb-0 ">
                     <label htmlFor="capacity" className="fw-light">
-                      Jumlah Penumpang (optional)
+                      Jumlah Penumpang
                     </label>
                     <div className="input-group">
                       <input
@@ -156,84 +151,7 @@ export default function SearchCar() {
           </div>
         </div>
         <div className="container cars-result">
-          {isFetching === true && (
-            <div
-              style={{
-                height: "20vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-              className="text-center"
-            >
-              <div className="spinner-border text-success mb-3" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <p>Fetching Cars Data ...</p>
-            </div>
-          )}
-
-          {!isFetching && cars.length === 0 && (
-            <div className="card text-center border-0 shadow mt-5">
-              <div className="card-body">No Cars Found.</div>
-            </div>
-          )}
-
-          <div className="row" id="cars-container">
-            {isFetching === false &&
-              cars.length > 0 &&
-              cars.map((car) => (
-                <div className="col-lg-4" key={car.id}>
-                  <div className="card cars-card">
-                    <img
-                      src={car.image.slice(1)}
-                      className="card-img-top cars-thumbnail"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title cars-type">
-                        {car.manufacture} {car.model} / {car.type}
-                      </h5>
-                      <h5 className="card-title cars-price">
-                        Rp. {FormatPrice(car.rentPerDay)} / hari
-                      </h5>
-                      <p className="cars-description">{car.description}</p>
-                      <div className="row cars-passenger">
-                        <div className="col-1 cars-item-icon">
-                          <img src="/images/fi_users1.png" alt="" />
-                        </div>
-                        <div className="col-10 cars-item-description">
-                          {car.capacity} orang
-                        </div>
-                      </div>
-                      <div className="row cars-transmission">
-                        <div className="col-1 cars-item-icon">
-                          <img src="/images/fi_settings.png" alt="" />
-                        </div>
-                        <div className="col-10 cars-item-description">
-                          {car.transmission}
-                        </div>
-                      </div>
-                      <div className="row cars-year">
-                        <div className="col-1 cars-item-icon">
-                          <img src="/images/fi_calendar.png" alt="" />
-                        </div>
-                        <div className="col-10 cars-item-description">
-                          Tahun {car.year}
-                        </div>
-                      </div>
-                      <a
-                        href="#"
-                        className="btn btn-success-custom"
-                        style={{ width: "100%" }}
-                      >
-                        Go somewhere
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-          </div>
+          <CarsCard data={cars} isLoading={isFetching} />
         </div>
       </section>
     </>

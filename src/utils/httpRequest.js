@@ -3,9 +3,7 @@ import filterValidation from "./validation";
 export async function getAllCars(data) {
   filterValidation(data);
 
-  const { driverType, date, time, capacity } = data;
-
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  const { date, time, capacity } = data;
 
   const response = await fetch(
     `https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json`,
@@ -32,10 +30,6 @@ export async function getAllCars(data) {
     if (car.available === false) {
       return false;
     }
-
-    // Filter by capacity
-
-    console.log(parseInt(capacity));
 
     if (car.capacity < parseInt(capacity)) {
       return false;
