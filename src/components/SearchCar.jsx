@@ -4,6 +4,7 @@ import { getAllCars } from "../utils/httpRequest";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import FormatPrice from "../utils/formatPrice";
 
 export default function SearchCar() {
   const [isFetching, setIsFetching] = useState();
@@ -71,6 +72,7 @@ export default function SearchCar() {
 
         <div className="container">
           <div className="card filter-card shadow">
+            {/* Filter Search */}
             <div className="row">
               <div className="col-lg-10">
                 <div className="row">
@@ -173,8 +175,8 @@ export default function SearchCar() {
           )}
 
           {!isFetching && cars.length === 0 && (
-            <div className="text-center mt-5">
-              <p>No Cars Found.</p>
+            <div className="card text-center border-0 shadow mt-5">
+              <div className="card-body">No Cars Found.</div>
             </div>
           )}
 
@@ -193,7 +195,7 @@ export default function SearchCar() {
                         {car.manufacture} {car.model} / {car.type}
                       </h5>
                       <h5 className="card-title cars-price">
-                        Rp {car.rentPerDay} / hari
+                        Rp. {FormatPrice(car.rentPerDay)} / hari
                       </h5>
                       <p className="cars-description">{car.description}</p>
                       <div className="row cars-passenger">
