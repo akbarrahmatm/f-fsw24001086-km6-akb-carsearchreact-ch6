@@ -4,11 +4,13 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import OurService from "../components/OurService";
 import Testimonial from "../components/Testimonial";
+import Title from "../components/Title";
 import WhyUs from "../components/WhyUs";
 
 export default function Home() {
   return (
     <>
+      <Title page="Home" />;
       <div>
         <Hero />
         <OurService />

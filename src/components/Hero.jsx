@@ -8,7 +8,7 @@ export default function Hero() {
             aria-label="Offcanvas navbar large"
           >
             <div className="container">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="/">
                 <img
                   src="/assets/img/svg/logo.svg"
                   alt="Bootstrap"
