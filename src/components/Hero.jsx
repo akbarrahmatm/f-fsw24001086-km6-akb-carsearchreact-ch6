@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Hero() {
   return (
     <>
@@ -8,7 +10,7 @@ export default function Hero() {
             aria-label="Offcanvas navbar large"
           >
             <div className="container">
-              <a className="navbar-brand" href="/">
+              <a href="/" className="navbar-brand">
                 <img
                   src="/assets/img/svg/logo.svg"
                   alt="Bootstrap"
@@ -86,9 +88,10 @@ export default function Hero() {
                 kualitas terbaik dengan harga terjangkau. Selalu siap melayani
                 kebutuhanmu untuk sewa mobil selama 24 jam.
               </p>
-              <a className="btn btn-success-custom" href="/cars">
+
+              <Link to="/cars" className="btn btn-success-custom">
                 Mulai Sewa Mobil
-              </a>
+              </Link>
             </div>
             <div className="col-lg-6">
               <img
