@@ -1,8 +1,6 @@
 # Challenge 6 MSIB Binar Academy
 
-## Backend
-
-REST API Using this [Repository](https://github.com/akbarrahmatm/f-fsw24001086-km6-akb-carmanagementdashboard-ch4)
+[Source Data](https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json)
 
 ## Installation
 
