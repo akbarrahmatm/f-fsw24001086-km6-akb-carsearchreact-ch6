@@ -7,6 +7,7 @@ import OurService from "../components/OurService";
 import Testimonial from "../components/Testimonial";
 import Title from "../components/Title";
 import WhyUs from "../components/WhyUs";
+import "/assets/vendor/owlcarousel/dist/assets";
 
 export default function Home() {
   return (
