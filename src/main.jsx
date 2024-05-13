@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cars from "./pages/Cars.jsx";
 import Home from "./pages/Home.jsx";
 import "react-toastify/dist/ReactToastify.min.css";
-import "/public/assets/js/script";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
